@@ -2,7 +2,9 @@ class Build {
   constructor({ bamboo, plan, link, ...rest }) {
     this.bamboo = bamboo;
     this.plan = plan;
-    this.link = plan.link;
+    if (link) {
+      this.link = new URL(link && link.href ? link.href : link);
+    }
 
     Object.keys(rest).forEach((key) => {
       if (key.match(/(?:Date|Time)$/) && !key.match(/^pretty|Relative/)) {

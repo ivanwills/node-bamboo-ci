@@ -15,7 +15,6 @@ class Plan {
     isActive,
     planKey,
     enabled,
-    ...rest
   }) {
     count++;
 
@@ -97,7 +96,7 @@ class Plan {
     return {
       key: this.key,
       name: this.name,
-      link: link.toString(),
+      link: this.link.toString(),
       description: this.description,
       num_stages: this.num_stages,
       isEnabled: this.isEnabled,

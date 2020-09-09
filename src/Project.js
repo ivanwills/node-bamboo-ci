@@ -27,7 +27,7 @@ class Project {
     return {
       key: this.key,
       name: this.name,
-      link: link.toString(),
+      link: this.link.toString(),
       description: this.description,
       plans: this.plans,
     };
