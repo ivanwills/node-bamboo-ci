@@ -3,7 +3,15 @@ const Project = require('./Project');
 const Plan = require('./Plan');
 
 class Bamboo {
-  constructor({ hostname, username, password, protocol, port, realm = 'protected-area', debug = false }) {
+  constructor({
+    hostname,
+    username,
+    password,
+    protocol,
+    port,
+    realm = 'protected-area',
+    debug = false,
+  }) {
     this.hostname = hostname;
     this.username = username;
     this.password = password;
@@ -25,7 +33,7 @@ class Bamboo {
 
     return uri;
   }
-  axiosConfig () {
+  axiosConfig() {
     const config = {};
     if (this.username || this.password) {
       config.auth = {};
@@ -40,7 +48,7 @@ class Bamboo {
     return config;
   }
 
-  async request (path, params = {}) {
+  async request(path, params = {}) {
     const uri = new URL(this._uri);
     uri.pathname += path;
 
@@ -50,15 +58,18 @@ class Bamboo {
     console.info(path, uri.toString());
 
     try {
-      const response = await axios.get(uri.toString(), this.axiosConfig())
+      const response = await axios.get(uri.toString(), this.axiosConfig());
       return response.data;
     } catch (e) {
       console.error(e);
     }
   }
 
-  async projects () {
-    const response = await this.request('project', { expand: 'projects.project.plans.plan', "max-results": 200 });
+  async projects() {
+    const response = await this.request('project', {
+      expand: 'projects.project.plans.plan',
+      'max-results': 200,
+    });
 
     const projects = [];
     const pushProjects = (project) => {
@@ -74,23 +85,29 @@ class Bamboo {
     return projects;
   }
 
-  async project (key) {
-    const response = await this.request(`project/${key}`, { expand: 'plans.plan', "max-results": 200 });
+  async project(key) {
+    const response = await this.request(`project/${key}`, {
+      expand: 'plans.plan',
+      'max-results': 200,
+    });
 
     return new Project({ bamboo: this, ...response });
   }
 
-  async plan (projectKey, planKey) {
+  async plan(projectKey, planKey) {
     const projectJson = await this.request(`project/${projectKey}`);
 
     const project = new Project({ bamboo: this, ...projectJson });
-    const planJson = await this.request(`plan/${projectKey}-${planKey}`, { expand: 'plans.plan', "max-results": 200 });
+    const planJson = await this.request(`plan/${projectKey}-${planKey}`, {
+      expand: 'plans.plan',
+      'max-results': 200,
+    });
 
     console.log(planJson);
     return new Plan({
       bamboo: this,
       project: project,
-      ...planJson
+      ...planJson,
     });
     /*
     const project = await this.project(projectKey);

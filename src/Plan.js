@@ -2,9 +2,21 @@ const Build = require('./Build');
 let count = 0;
 
 class Plan {
-
-  constructor({ project, bamboo, key, name, link, description,
-    num_stages, isEnabled, isBuilding, isActive, planKey, enabled, ...rest }) {
+  constructor({
+    project,
+    bamboo,
+    key,
+    name,
+    link,
+    description,
+    num_stages,
+    isEnabled,
+    isBuilding,
+    isActive,
+    planKey,
+    enabled,
+    ...rest
+  }) {
     count++;
 
     if (!bamboo) {
@@ -35,17 +47,22 @@ class Plan {
 
   async getBuilds(branch) {
     console.log('in', this.bamboo);
-    const results = await this.bamboo.request(`result/${this.planKey}${branch ? `/branch/${branch}`: ''}`, { expand: 'results[0:5].result', 'max-results': 100 });
+    const results = await this.bamboo.request(
+      `result/${this.planKey}${branch ? `/branch/${branch}` : ''}`,
+      { expand: 'results[0:5].result', 'max-results': 100 }
+    );
 
     console.log(results.results.result);
     const builds = [];
 
-    results.results.result.forEach(result => {
-      builds.push(new Build({
-        bamboo: this.bamboo,
-        plan: this,
-        ...result,
-      }));
+    results.results.result.forEach((result) => {
+      builds.push(
+        new Build({
+          bamboo: this.bamboo,
+          plan: this,
+          ...result,
+        })
+      );
     });
 
     return builds;
@@ -76,23 +93,23 @@ class Plan {
     return this.build(num);
   }
 
-  toJSON () {
+  toJSON() {
     return {
       key: this.key,
       name: this.name,
       link: link.toString(),
       description: this.description,
-      num_stages : this.num_stages,
-      isEnabled : this.isEnabled,
+      num_stages: this.num_stages,
+      isEnabled: this.isEnabled,
       isBuilding: this.isBuilding,
-      isActive  : this.isActive,
-    }
+      isActive: this.isActive,
+    };
   }
 }
 
 module.exports = Plan;
 
-    /*
+/*
 has _builds =>
 	traits		=> [ 'Hash' ],
 	isa			=> 'HashRef[Net::Bamboo::Build]',
