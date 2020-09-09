@@ -5,7 +5,7 @@ An Atlasian Bamboo CI interface library
 # Usage
 
 ```javascript
-const Bamboo = require('BambooCi');
+const Bamboo = require('BambooCi').Bamboo;
 
 const bamboo = new Bamboo({
   // only this is required, the rest are either not used or have sensible
@@ -25,6 +25,10 @@ const plan = await bamboo.plan('projectKey', 'buildKey');
 # The Bamboo object
 
 ## Constructor
+
+# REFERENCES
+
+This is a port of the perl module Net::Bamboo
 
 # ALSO SEE
 
