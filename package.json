@@ -1,5 +1,5 @@
 {
-  "name": "bamboo-ci",
+  "name": "bamboo-ci-api",
   "version": "0.0.1",
   "description": "API helper to the Atlasian Bamboo CI envrionment",
   "main": "index.js",
