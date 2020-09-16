@@ -19,7 +19,9 @@ class Plan {
     count++;
 
     if (!bamboo) {
-      console.log(count, project);
+      if (this.bamboo.debug) {
+        console.log(count, project);
+      }
       throw "Where's my bamboo!";
     }
 
@@ -45,13 +47,17 @@ class Plan {
   }
 
   async getBuilds(branch) {
-    console.log('in', this.bamboo);
+    if (this.bamboo.debug) {
+      console.log('in', this.bamboo);
+    }
     const results = await this.bamboo.request(
       `result/${this.planKey}${branch ? `/branch/${branch}` : ''}`,
       { expand: 'results[0:5].result', 'max-results': 100 }
     );
 
-    console.log(results.results.result);
+    if (this.bamboo.debug) {
+      console.log(results.results.result);
+    }
     const builds = [];
 
     results.results.result.forEach((result) => {

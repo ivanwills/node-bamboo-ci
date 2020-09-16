@@ -9,7 +9,9 @@ class Build {
     Object.keys(rest).forEach((key) => {
       if (key.match(/(?:Date|Time)$/) && !key.match(/^pretty|Relative/)) {
         this[key] = new Date(rest[key]);
-        console.log(this[key] instanceof Date);
+        if (this.bamboo.debug) {
+          console.log(this[key] instanceof Date);
+        }
       } else {
         this[key] = rest[key];
       }

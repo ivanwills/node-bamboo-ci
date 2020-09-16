@@ -55,7 +55,9 @@ class Bamboo {
     Object.keys(params).forEach((key) => {
       uri.searchParams.append(key, params[key]);
     });
-    console.info(path, uri.toString());
+    if (this.debug) {
+      console.info(path, uri.toString());
+    }
 
     try {
       const response = await axios.get(uri.toString(), this.axiosConfig());
@@ -79,7 +81,9 @@ class Bamboo {
 
     while (response.projects.size > response.projects['max-result']) {
       // keep getting more projects
-      console.log('more to find');
+      if (this.debug) {
+        console.log('more to find');
+      }
     }
 
     return projects;
@@ -103,7 +107,9 @@ class Bamboo {
       'max-results': 200,
     });
 
-    console.log(planJson);
+    if (this.debug) {
+      console.log(planJson);
+    }
     return new Plan({
       bamboo: this,
       project: project,
