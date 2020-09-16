@@ -3,7 +3,7 @@ const Project = require('./src/Project');
 const Plan = require('./src/Plan');
 const Build = require('./src/Build');
 
-modules.exports = {
+module.exports = {
   Bamboo,
   Project,
   Plan,
