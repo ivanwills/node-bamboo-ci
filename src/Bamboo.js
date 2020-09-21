@@ -59,12 +59,21 @@ class Bamboo {
       console.info(path, uri.toString());
     }
 
+    let response;
     try {
-      const response = await axios.get(uri.toString(), this.axiosConfig());
-      return response.data;
+      response = await axios.get(uri.toString(), this.axiosConfig());
     } catch (e) {
-      console.error(e);
+      if (this.debug) {
+        console.error(e);
+      }
+      throw `Couldn't get ${path}\n`;
     }
+
+    if (!response || !response.data) {
+      throw `No data found for ${path}\n`;
+    }
+
+    return response.data;
   }
 
   async projects() {
