@@ -15,13 +15,13 @@
   "author": "Ivan Wills",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.20.0",
-    "whatwg-fetch": "^3.4.1"
+    "axios": "^0.21.0",
+    "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
-    "eslint": "^7.8.1",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.1.1"
+    "prettier": "^2.2.1"
   }
 }
