@@ -19,6 +19,7 @@ class Bamboo {
     this.port = port;
     this.realm = realm;
     this.debug = debug;
+    this.axios = axios;
 
     this._uri = this.buildUri();
   }
@@ -31,6 +32,9 @@ class Bamboo {
     uri.pathname = '/rest/api/latest/';
     uri.searchParams.os_authType = 'basic';
 
+    if (this.debug) {
+      console.log('URL: ', uri);
+    }
     return uri;
   }
   axiosConfig() {
@@ -61,7 +65,10 @@ class Bamboo {
 
     let response;
     try {
-      response = await axios.get(uri.toString(), this.axiosConfig());
+      if (this.debug) {
+        console.log('getting ', uri.toString());
+      }
+      response = await this.axios.get(uri.toString(), this.axiosConfig());
     } catch (e) {
       if (this.debug) {
         console.error(e);
@@ -73,6 +80,9 @@ class Bamboo {
       throw `No data found for ${path}\n`;
     }
 
+    if (this.debug) {
+      console.log('response:', JSON.stringify(response.data));
+    }
     return response.data;
   }
 
