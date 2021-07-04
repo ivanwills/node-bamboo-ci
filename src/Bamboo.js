@@ -66,14 +66,14 @@ class Bamboo {
     let response;
     try {
       if (this.debug) {
-        console.log('getting ', uri.toString());
+        console.log('Getting: ', uri.toString());
       }
       response = await this.axios.get(uri.toString(), this.axiosConfig());
     } catch (e) {
       if (this.debug) {
         console.error(e);
       }
-      throw `Couldn't get ${path}\n`;
+      throw `Couldn't get ${uri.pathname}\n`;
     }
 
     if (!response || !response.data) {
@@ -81,7 +81,7 @@ class Bamboo {
     }
 
     if (this.debug) {
-      console.log('response:', JSON.stringify(response.data));
+      console.log('Response:', JSON.stringify(response.data));
     }
     return response.data;
   }
