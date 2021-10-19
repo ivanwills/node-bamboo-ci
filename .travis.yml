@@ -1,0 +1,10 @@
+language: node_js
+env: CI=true
+sudo: false
+node_js:
+    - '10.16'
+    - '12'
+    - '14'
+after_script:
+    - gulp test
+after_success: ./node_modules/.bin/coveralls --verbose < coverage/lcov.info
