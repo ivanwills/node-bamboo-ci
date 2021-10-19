@@ -20,7 +20,7 @@ class Plan {
 
     if (!bamboo) {
       if (this.bamboo.debug) {
-        console.log(count, project);
+        console.log('Plan.new ', count, project);
       }
       throw "Where's my bamboo!";
     }
@@ -48,7 +48,7 @@ class Plan {
 
   async getBuilds(branch) {
     if (this.bamboo.debug) {
-      console.log('in', this.bamboo);
+      console.log('Plan.getBuild, in', this.bamboo);
     }
     const results = await this.bamboo.request(
       `result/${this.planKey}${branch ? `/branch/${branch}` : ''}`,
@@ -56,7 +56,7 @@ class Plan {
     );
 
     if (this.bamboo.debug) {
-      console.log(results.results.result);
+      console.log('Plan.getBuild results', results.results.result);
     }
     const builds = [];
 

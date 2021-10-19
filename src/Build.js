@@ -10,7 +10,7 @@ class Build {
       if (key.match(/(?:Date|Time)$/) && !key.match(/^pretty|Relative/)) {
         this[key] = new Date(rest[key]);
         if (this.bamboo.debug) {
-          console.log(this[key] instanceof Date);
+          console.log('Build.new ', this[key] instanceof Date);
         }
       } else {
         this[key] = rest[key];

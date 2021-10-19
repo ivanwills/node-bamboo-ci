@@ -33,7 +33,7 @@ class Bamboo {
     uri.searchParams.os_authType = 'basic';
 
     if (this.debug) {
-      console.log('URL: ', uri);
+      console.log('Bamboo.buildUri URL: ', uri);
     }
     return uri;
   }
@@ -66,7 +66,7 @@ class Bamboo {
     let response;
     try {
       if (this.debug) {
-        console.log('Getting: ', uri.toString());
+        console.log('Bamboo.request Getting: ', uri.toString());
       }
       response = await this.axios.get(uri.toString(), this.axiosConfig());
     } catch (e) {
@@ -81,7 +81,7 @@ class Bamboo {
     }
 
     if (this.debug) {
-      console.log('Response:', JSON.stringify(response.data));
+      console.log('Bamboo.request Response:', JSON.stringify(response.data));
     }
     return response.data;
   }
@@ -101,7 +101,7 @@ class Bamboo {
     while (response.projects.size > response.projects['max-result']) {
       // keep getting more projects
       if (this.debug) {
-        console.log('more to find');
+        console.log('Bamboo.projects more to find');
       }
     }
 
@@ -127,7 +127,7 @@ class Bamboo {
     });
 
     if (this.debug) {
-      console.log(planJson);
+      console.log('Bamboo.request ', planJson);
     }
     return new Plan({
       bamboo: this,
